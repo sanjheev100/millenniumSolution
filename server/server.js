@@ -35,7 +35,7 @@ app.use(
         '<br/>' +
         '<br/>'
       await sendEmail(
-        email,
+        process.env.OWNER_EMAIL,
         'New Contact Request for Millenium',
         messagecontent
       )
