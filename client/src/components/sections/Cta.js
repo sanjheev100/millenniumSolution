@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import { SectionProps } from '../../utils/SectionProps'
@@ -47,7 +47,7 @@ const Cta = ({
   const [email, setEmail] = useState('')
   const [phone, setPhone] = useState('')
   const [description, setDescription] = useState('')
-
+  const [loading, setLoading] = useState(false)
   const handleSubmit = (e) => {
     e.preventDefault()
     let payload = {
@@ -56,6 +56,7 @@ const Cta = ({
       phone,
       description,
     }
+    setLoading(true)
     axios
       .post(`${process.env.REACT_APP_BACKEND}/sendEmail`, payload)
       .then((res) => {
@@ -64,9 +65,14 @@ const Cta = ({
         setDescription('')
         setName('')
         setPhone('')
+        setLoading(false)
         setTimeout(() => {
           setSuccess('')
         }, 6000)
+        // document.body.scrollTop = document.documentElement.scrollTop = 0
+        setTimeout(() => {
+          window.scrollTo({ top: 0, behavior: 'smooth' })
+        }, 2000)
       })
       .catch((error) => {
         console.log(error)
@@ -74,6 +80,7 @@ const Cta = ({
         setTimeout(() => {
           setError('')
         }, 6000)
+        setLoading(false)
       })
   }
 
@@ -111,11 +118,11 @@ const Cta = ({
               </p>
             )}
             <form>
-              <div class='form-group'>
+              <div className='form-group'>
                 {/* <label for='exampleInputEmail1'>Email address</label> */}
                 <Input
                   type='text'
-                  class='form-control'
+                  className='form-control'
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   placeholder='Enter Name'
@@ -124,11 +131,11 @@ const Cta = ({
                 />
               </div>
               <br />
-              <div class='form-group'>
+              <div className='form-group'>
                 {/* <label for='exampleInputEmail1'>Email address</label> */}
                 <Input
                   type='number'
-                  class='form-control'
+                  className='form-control'
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
                   placeholder='Enter Phone'
@@ -138,11 +145,11 @@ const Cta = ({
               </div>
               <br />
 
-              <div class='form-group'>
+              <div className='form-group'>
                 {/* <label for='exampleInputEmail1'>Email address</label> */}
                 <Input
                   type='email'
-                  class='form-control'
+                  className='form-control'
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder='Enter Email'
@@ -151,20 +158,18 @@ const Cta = ({
                 />
               </div>
               <br />
-              <div class='form-group'>
+              <div className='form-group'>
                 {/* <label for='exampleInputEmail1'>Email address</label> */}
                 <Input
                   onChange={(e) => setDescription(e.target.value)}
                   value={description}
                   placeholder='Enter Description'
-                  rows='4'
-                  cols='30'
                   required={true}
                 />
               </div>
               <br />
               <button
-                disabled={!name || !email || !phone || !description}
+                disabled={!name || !email || !phone || !description || loading}
                 style={{
                   border: 'None',
                   color: 'black',

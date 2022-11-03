@@ -1,10 +1,9 @@
-import React, { useState } from 'react'
+import React from 'react'
 import classNames from 'classnames'
 import { SectionProps } from '../../utils/SectionProps'
 import ButtonGroup from '../elements/ButtonGroup'
 import Button from '../elements/Button'
 import Image from '../elements/Image'
-import Modal from '../elements/Modal'
 
 const propTypes = {
   ...SectionProps.types,
@@ -24,18 +23,6 @@ const Hero = ({
   invertColor,
   ...props
 }) => {
-  const [videoModalActive, setVideomodalactive] = useState(false)
-
-  const openModal = (e) => {
-    e.preventDefault()
-    setVideomodalactive(true)
-  }
-
-  const closeModal = (e) => {
-    e.preventDefault()
-    setVideomodalactive(false)
-  }
-
   const outerClasses = classNames(
     'hero section center-content',
     topOuterDivider && 'has-top-divider',
@@ -73,7 +60,15 @@ const Hero = ({
               </p>
               <div className='reveal-from-bottom' data-reveal-delay='600'>
                 <ButtonGroup>
-                  <Button>Get started</Button>
+                  <div
+                    onClick={() => {
+                      document.getElementById('second').scrollIntoView({
+                        behavior: 'smooth',
+                      })
+                    }}
+                  >
+                    <Button>Get started</Button>
+                  </div>
                 </ButtonGroup>
               </div>
             </div>
@@ -82,6 +77,7 @@ const Hero = ({
             className='hero-figure reveal-from-bottom illustration-element-01'
             data-reveal-value='20px'
             data-reveal-delay='800'
+            id='second'
           >
             <Image
               className='has-shadow'
@@ -91,13 +87,6 @@ const Hero = ({
               height={504}
             />
           </div>
-          <Modal
-            id='video-modal'
-            show={videoModalActive}
-            handleClose={closeModal}
-            video='https://player.vimeo.com/video/174002812'
-            videoTag='iframe'
-          />
         </div>
       </div>
     </section>
