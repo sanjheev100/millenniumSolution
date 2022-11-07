@@ -4,6 +4,8 @@ import classNames from 'classnames'
 import { SectionProps } from '../../utils/SectionProps'
 import Input from '../elements/Input'
 import axios from 'axios'
+import mailIcon from '../../assets/images/mailIcon.png'
+import locationIcon from '../../assets/images/location__marker.png'
 
 const propTypes = {
   ...SectionProps.types,
@@ -90,7 +92,38 @@ const Cta = ({
         <div className={innerClasses}>
           <div className='cta-slogan'>
             <h3 className='m-0'>Contact our executive.</h3>
+            <div
+              style={{
+                display: 'flex',
+                flexWrap: 'wrap',
+                flexDirection: 'row',
+              }}
+            >
+              <img src={mailIcon} height={20} width={30} />
+              &nbsp;
+              <span style={{ color: 'white' }}>
+                {' '}
+                contact@millennium-solutions.com
+              </span>
+            </div>
+            <br />
+            <br />
+            {/* <hr /> */}
+            <h2>Address</h2>
+            {/* <div
+              style={{
+                display: 'flex',
+                flexWrap: 'wrap',
+                flexDirection: 'row',
+              }}
+            > */}
+            {/* <img src={locationIcon} height={40} width={40} /> */}
+            <span style={{ color: 'white' }} className='mt-3'>
+              8,The Green Suite A,Dover 19901
+            </span>
+            {/* </div> */}
           </div>
+
           <div className='cta-action'>
             {error && (
               <p
